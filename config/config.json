@@ -1,16 +1,10 @@
 {
     "development": {
-        "username": "bhtrkmalhydivt",
-        "password": "7934fa7f6f94b5ffa27d28496ebfb3a48d31b8d1806ee6f4abd47e27e49eef11",
-        "database": "d5r3q77vpbha4h",
-        "host": "ec2-3-217-14-181.compute-1.amazonaws.com",
-        "dialect": "postgres",
-        "dialectOptions": {
-            "ssl": {
-                "require": true,
-                "rejectUnauthorized": false
-                }
-        }
+        "username": "postgres",
+        "password": "ph170597",
+        "database": "aromadb",
+        "host": "localhost",
+        "dialect": "postgres"
     },
     "test": {
         "username": "postgres",
