@@ -1,14 +1,15 @@
 let express = require('express');
 let app = express();
-
 // set public static Folder
 app.use(express.static(__dirname + '/public'));
-
 // user view Engine
 let expressHbs = require('express-handlebars');
 let hbs = expressHbs.create({
     extname: 'hbs',
     defaultLayout: 'layout',
+    runtimeOptions:{
+        allowProtoPropertiesByDefault:true
+    },
     layoutsDir: __dirname + '/views/layouts/',
     partialsDir: __dirname + '/views/partials/'
 });
@@ -16,10 +17,21 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
 // define your routes here
-app.get('/', (req, res) => {
-    res.render('index')
-});
+// / => index
+// /products => category
+// /product => single-product
 
+// index.js => router/..router.js => controller//..controller.fs
+app.use('/', require('./routes/indexRouter'));
+app.use('/products', require('./routes/productRouter'));
+
+app.get('/sync', (req,res) =>{
+    let models = require('./models');
+    models.sequelize.sync()
+    .then(() =>{
+        res.send(`database sync completed!`)
+    });
+});
 app.get('/:page', (req, res) => {
     let banners = {
         blog: 'Our Blog',
